@@ -1,5 +1,6 @@
 package com.example.contatosapi.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.contatosapi.domain.Empresa;
+import com.example.contatosapi.enums.EmpresaTipo;
 import com.example.contatosapi.model.AddEditEmpresaDto;
 import com.example.contatosapi.service.EmpresaService;
 
@@ -39,9 +41,10 @@ public class EmpresaController {
 	
 	@PostMapping
 	public ResponseEntity<Empresa> insert(@RequestBody AddEditEmpresaDto model) {
+		
 		Empresa empresa = new Empresa();
 		
-		empresa.setTipo(model.getTipo());
+		empresa.setTipo(EmpresaTipo.getEnumByString(model.getTipo()));
 		empresa.setNome(model.getNome());
 		empresa.setTelefone(model.getTelefone());
 		empresa.setEndereco(model.getEndereco());
@@ -50,7 +53,8 @@ public class EmpresaController {
 		empresa.setEnderecoBairro(model.getEnderecoBairro());
 		empresa.setEnderecoCidade(model.getEnderecoCidade());
 		empresa.setEnderecoUf(model.getEnderecoUf());
-		empresa.setCreatedAt(model.getCreatedAt());
+		empresa.setEnderecoCep(model.getEnderecoCep());
+		empresa.setCreatedAt(new Date());
 		
 		empresa = empresaService.save(empresa);
 		
@@ -62,7 +66,7 @@ public class EmpresaController {
 		
 		Empresa empresa = empresaService.findaById(id);
 		
-		empresa.setTipo(model.getTipo());
+		empresa.setTipo(EmpresaTipo.getEnumByString(model.getTipo()));
 		empresa.setNome(model.getNome());
 		empresa.setTelefone(model.getTelefone());
 		empresa.setEndereco(model.getEndereco());
@@ -71,7 +75,8 @@ public class EmpresaController {
 		empresa.setEnderecoBairro(model.getEnderecoBairro());
 		empresa.setEnderecoCidade(model.getEnderecoCidade());
 		empresa.setEnderecoUf(model.getEnderecoUf());
-		empresa.setCreatedAt(model.getCreatedAt());
+		empresa.setEnderecoCep(model.getEnderecoCep());
+		empresa.setCreatedAt(new Date());
 		
 		empresa = empresaService.save(empresa);
 		
